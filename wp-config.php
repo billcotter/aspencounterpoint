@@ -60,8 +60,6 @@ define( 'WPLANG', '' );
 // ==========================
 // Aws Security credentials
 // ==========================
-define( 'AWS_ACCESS_KEY_ID', 'AKIAJNBI6OB5FUF2G56A' );
-define( 'AWS_SECRET_ACCESS_KEY', '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' );
 
 // ===========
 // Hide errors
