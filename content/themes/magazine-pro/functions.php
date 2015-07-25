@@ -117,6 +117,37 @@ function magazine_remove_comment_form_allowed_tags( $defaults ) {
 
 }
 
+/*
+* Filter for Full Content on The Events Calender(3.8) Views Page in Genesis(2.1.2) when using Default Page Template in Event Display Settings
+* Shows Event Calendar Views Such as Month, List, etc even if Content Archive Setting in Genesis is set to Display post excerpts
+* The Events Calendar @3.10
+* Genesis @2.1.2
+*/
+add_filter( 'genesis_pre_get_option_content_archive', 'tribe_genesis_event_archive_full_content' );
+function tribe_genesis_event_archive_full_content() {
+ 
+    if ( class_exists( 'Tribe__Events__Main' ) && class_exists( 'Tribe__Events__Pro__Main' ) ) {
+        if( tribe_is_month() || tribe_is_upcoming() || tribe_is_past() || tribe_is_day() || tribe_is_map() || tribe_is_photo() || tribe_is_week() ) {
+            return 'full';
+        }
+    } elseif ( class_exists( 'Tribe__Events__Main' ) && !class_exists( 'Tribe__Events__Pro__Main' ) ) {
+        if( tribe_is_month() || tribe_is_upcoming() || tribe_is_past() || tribe_is_day() ) {
+            return 'full';
+        }
+    }
+}
+
+
+// Add Read More Link to Excerpts
+
+	add_filter('excerpt_more', 'get_read_more_link');
+	add_filter( 'the_content_more_link', 'get_read_more_link' );
+	function get_read_more_link() {
+	return '...&nbsp;<a href="' . get_permalink() . '">Continue Reading &gt;&gt;</a>';
+
+	}
+
+
 //* Add support for 3-column footer widgets
 add_theme_support( 'genesis-footer-widgets', 3 );
 
